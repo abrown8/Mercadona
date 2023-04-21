@@ -1,0 +1,35 @@
+<div *ngIf="article" class="container py-5">
+    <div class="row">
+      <div class="col-md-6">
+        <img class="card-img-top rounded-0" [src]="article.image" alt="Card image cap">
+    </div>
+      <div class="col-md-6 mt-4 mt-md-0">
+        <h2>{{ article.libele }}</h2>
+        <div class="card shadow-lg">
+          <div class="card-body">
+            <p class="card-text">{{ article.description }}</p>
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td><strong>Catégorie :</strong></td>
+                  <td>{{ article.categorie }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Prix :</strong></td>
+                  <td>{{ article.prix }} €</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="mt-4">
+              <a (click)="goHome()" class="btn btn-secondary">Retour</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!article" class="d-flex flex-column align-items-center">
+    <h3 class="text-center mt-5">Aucun article à afficher !</h3>
+    <a class="btn btn-secondary mt-3 justify-content-center" routerLink="/articles"> Retour </a>
+  </div> 
+  
