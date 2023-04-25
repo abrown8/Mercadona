@@ -12,7 +12,7 @@
               <tbody>
                 <tr>
                   <td><strong>Catégorie :</strong></td>
-                  <td>{{ article.categorie }}</td>
+                  <td>{{ article.getCategoryLibele() }}</td>
                 </tr>
                 <tr>
                   <td><strong>Prix :</strong></td>
@@ -21,7 +21,7 @@
               </tbody>
             </table>
             <div class="mt-4">
-              <a (click)="goHome()" class="btn btn-secondary">Retour</a>
+              <button type="button" class="btn btn-secondary" style="width: 120px;" (click)="goHome()">Retour</button>
             </div>
           </div>
         </div>

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ARTICLES } from './article-list';
-import { Article } from './article';
+import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',

@@ -1,13 +1,13 @@
 <div class="container-fluid bg-light py-5">
   <div class="row">
     <div *ngFor="let article of articleList" class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div (click)="goToArticle(article)" class="card h-100 shadow-lg bg-secondary text-white" appBorderCard>
+      <div (click)="goToArticle(article)" class="card h-100 shadow-lg text-white" style="background-color: #FF5733" appBorderCard>
         <img class="card-img-top" [src]="article.image" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{article.libele}}</h5>
           <p class="card-text">{{article.description}}</p>
           <p class="card-text">{{article.prix}} €</p>
-          <p class="card-text">{{article.categorie}}</p>
+          <p class="card-text">{{article.getCategoryLibele()}}</p>
         </div>
       </div>
     </div>

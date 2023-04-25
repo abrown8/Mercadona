@@ -1,0 +1,20 @@
+<div class="container mt-5" style="border: 2px solid #FF5733; padding: 30px;">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <form>
+        <div class="form-group mb-4">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required [(ngModel)]="email">
+        </div>
+        <div class="form-group mb-4">
+          <label for="password">Mot de passe</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required [(ngModel)]="password">
+        </div>
+        <div class="d-flex justify-content-between">
+          <button type="submit" (click)="login()" *ngIf="!auth.isLoggedIn" class="btn btn-primary" style="background-color: #FF5733; border-color: #FF5733; width: 120px;">Connexion</button>
+          <button type="button" (click)="goHome()" class="btn btn-secondary" style="width: 120px;">Retour</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

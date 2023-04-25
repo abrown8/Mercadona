@@ -1,10 +1,23 @@
-<header class="bg-secondary text-white">
-    <div class="container d-flex justify-content-center align-items-center h-100">
-      <a href="#" class="text-white text-decoration-none">
-        <h1 class="display-4 font-logo text-center">Mercadona</h1>
-      </a>
+<header style="background-color: #FF5733;">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap py-4">
+    <a href="/catalogue" class="text-white text-decoration-none">
+      <h1 class="display-4 font-logo">Mercadona</h1>
+    </a>
+    <div class="d-flex flex-wrap">
+      <a routerLink="/catalogue" class="btn btn-lg btn-outline-danger m-3 px-4 border-3 border-dark text-white" style="color: #FF5733; width: 180px;">Catalogue</a>
+      <a routerLink="/admin-login" class="btn btn-lg btn-outline-danger m-3 px-4 border-3 border-dark text-white" style="color: #FF5733; width: 180px;">Espace Admin</a>
     </div>
-  </header>
+  </div>
+</header>
+<style>
+  @media (max-width: 576px) {
+    .btn {
+      font-size: 0.875rem; /* Réduire la taille de la police */
+      padding: 0.5rem 1rem; /* Réduire le padding */
+    }
+  }
+</style>
+
   
 <router-outlet></router-outlet>
 
