@@ -40,6 +40,7 @@ export class AuthentificationComponent {
     this.auth.login(this.email, this.password)
       .subscribe((isLoggedIn: boolean) => {
         this.setMessage();
+        console.log("dans login de autthentification component : "+isLoggedIn)
         if(isLoggedIn) {
           this.router.navigate(["/admin"]);
         }
@@ -50,11 +51,6 @@ export class AuthentificationComponent {
         }
         
       })
-  }
-
-  logout() {
-    this.auth.logout();
-    this.message = "Vous êtes déconnecté.";
   }
 
 }

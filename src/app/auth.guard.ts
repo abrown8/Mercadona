@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate() {
+  canActivate(): boolean {
     if(this.authService.isLoggedIn) {
       console.log("Vous etes bien authentifié pour le guard")
       return true;

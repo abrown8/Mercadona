@@ -5,15 +5,25 @@ import { AuthentificationComponent } from './authentification/authentification.c
 import { FormsModule } from '@angular/forms';
 
 import { AuthGuard } from '../auth.guard';
+import { EditionComponent } from './edition/edition.component';
+import { EditionPromoComponent } from './edition/edition-promo/edition-promo.component';
+import { NouvelArticleComponent } from './edition/nouvel-article/nouvel-article.component';
 
 const AdminRoutes: Routes = [
+  { path: 'admin/nouvel-article', component: NouvelArticleComponent, canActivate: [AuthGuard]},
+  { path: 'admin/:id', component: EditionPromoComponent, canActivate: [AuthGuard]},
   { path: 'admin-login', component: AuthentificationComponent},
-  { path: 'interdit', component: AuthentificationComponent, canActivate: [AuthGuard]}
+  { path: 'admin', component: EditionComponent, canActivate: [AuthGuard]}
+  
+  
 ];
 
 @NgModule({
   declarations: [
-    AuthentificationComponent
+    AuthentificationComponent,
+    EditionComponent,
+    EditionPromoComponent,
+    NouvelArticleComponent,
   ],
   imports: [
     CommonModule,

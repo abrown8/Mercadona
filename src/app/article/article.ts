@@ -1,5 +1,7 @@
 import { Category } from "./category";
 import { CATEGORY } from "./category-list";
+import { Promotion } from "./promotion";
+import { PROMOTIONS } from "./promotion-list";
 
 export class Article {
     id: number;
@@ -23,4 +25,12 @@ export class Article {
       const cat: Category|undefined = CATEGORY.find(category => category.id == this.category_id)
       return cat?.libele;
     }
+
+    public getPromotion(): Promotion | undefined {
+      return PROMOTIONS.find(promo => promo.article_id == this.id);
+    }
+    
+
+
+    
 }
