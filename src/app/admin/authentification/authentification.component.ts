@@ -49,7 +49,6 @@ export class AuthentificationComponent {
           this.password = "";
           this.router.navigate(["/admin-login"]);
         }
-        
       })
   }
 

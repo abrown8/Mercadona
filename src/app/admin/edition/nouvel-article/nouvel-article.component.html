@@ -1,2 +1,39 @@
-<p>nouvel-article works!</p>
-<h1>TTT</h1>
+<div class="container mt-5" style="border: 2px solid #FF5733; padding: 30px;">
+    <h2 class="mb-5 text-center display-6 fw-semibold">Ajouter un article</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-10">
+        <form>
+          <div class="form-group mb-4">
+            <label for="formLibele">Nom de l'article</label>
+            <input type="text" class="form-control" id="formLibele" name="formLibele" placeholder="Nom de l'article" required [(ngModel)]="formLibele">
+          </div>
+          <div class="form-group mb-4">
+            <label for="formDescription">Description</label>
+            <input type="text" class="form-control" id="formDescription" name="formDescription" placeholder="Description" required [(ngModel)]="formDescription">
+          </div>
+          <div class="mb-3">
+            <label for="formImage" class="form-label">Image de l'article</label>
+            <input class="form-control" type="file" id="formImage" accept="image/*" (change)="onImageSelected($event)">
+          </div>         
+          <div class="form-group mb-4">
+            <label for="formPrix">Prix d'origine</label>
+            <input type="number" class="form-control" id="formPrix" name="formPrix" placeholder="Prix d'origine" required [(ngModel)]="formPrix">
+          </div>
+          <div class="form-group mb-4">
+            <label for="formCategory">Sélectionnez une catégorie</label>
+            <select class="form-select form-select-sm mb-3" name="formCategory" required (change)="onCategorySelected($event)">
+                <option disabled selected value="">Open this select menu</option>
+                <option *ngFor="let category of categoryList" [value]="category.id">{{ category.libele }}</option>
+              </select>
+              
+              
+          </div>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary"  (click)="onSubmit()" style="background-color: #FF5733; border-color: #FF5733; width: 120px;">Ajouter l'article</button>
+            <button type="button" class="btn btn-secondary" (click)="back()" style="width: 120px;">Retour</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
