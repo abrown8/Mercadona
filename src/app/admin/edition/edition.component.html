@@ -16,30 +16,30 @@
 <div class="container-fluid py-5">
     <div class="row">
         <div *ngFor="let article of articleList" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-4">
-            <div class="card h-100 shadow-lg text-white rounded" [ngStyle]="{'background-color': article.getPromotion()?.pourcentage_remise ? '#E60026' : '#FF5733' }" style="min-height: 150px;">
+            <div class="card h-100 shadow-lg text-white rounded" [ngStyle]="{'background-color': (article.getPromotion() | async )?.pourcentage_remise ? '#E60026' : '#FF5733' }" style="min-height: 150px;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h5 class="card-title mb-3">{{ article.libele }}</h5>
-                        <div *ngIf="article.getPromotion()?.pourcentage_remise" class="d-flex flex-column justify-content-end">
+                        <div *ngIf="(article.getPromotion() | async )?.pourcentage_remise" class="d-flex flex-column justify-content-end">
                             <button class="btn btn-sm btn-outline-light mb-2" (click)="editPromotion(article)">Modifier la promotion</button>
                             <button class="btn btn-sm btn-outline-light" (click)="deletePromotion(article)">Supprimer la promotion</button>
                         </div>
-                        <div *ngIf="!article.getPromotion()?.pourcentage_remise">
+                        <div *ngIf="!(article.getPromotion() | async )?.pourcentage_remise">
                             <button class="btn btn-sm btn-outline-light" (click)="editPromotion(article)">Ajouter une promotion</button>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between" style="margin-top: 20px;">
-                    <span *ngIf="!article.getPromotion()?.pourcentage_remise" style="font-weight: bold; font-size: 24px">{{ article.prix }} €</span>
-                    <span *ngIf="article.getPromotion()?.pourcentage_remise" style="font-weight: bold; font-size: 24px">
+                    <span *ngIf="!(article.getPromotion() | async )?.pourcentage_remise" style="font-weight: bold; font-size: 24px">{{ article.prix }} €</span>
+                    <span *ngIf="(article.getPromotion() | async )?.pourcentage_remise" style="font-weight: bold; font-size: 24px">
                             {{ article.prix }} €
                             >
-                            {{ getReducePrice(article) | number:'1.2-2' }} €
+                            {{ getReducedPriceForArticle(article) | async | number:'1.2-2' }} €
                     </span>
 
-                    <span *ngIf="article.getPromotion()?.pourcentage_remise">
+                    <span *ngIf="(article.getPromotion() | async )?.pourcentage_remise">
                         <div class="promo-badge">
                             <span style="padding: 5px 10px; background-color: white; font-weight: bold; color: #CF1111; border-radius: 10px;">
-                                PROMO -{{ article.getPromotion()?.pourcentage_remise }}% du {{ article.getPromotion()?.date_debut }} au {{ article.getPromotion()?.date_fin }}
+                                PROMO -{{ (article.getPromotion() | async )?.pourcentage_remise }}% du {{ (article.getPromotion() | async)?.date_debut | date:'dd/MM/yyyy' }} au {{ (article.getPromotion() | async)?.date_fin | date:'dd/MM/yyyy' }}
                             </span>
                         </div>
                     </span>

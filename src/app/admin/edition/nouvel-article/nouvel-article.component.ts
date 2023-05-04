@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'src/app/article/article';
 import { ArticleService } from 'src/app/article/article.service';
-import { Category } from 'src/app/article/category';
+import { Categorie } from 'src/app/article/categorie';
 
 @Component({
   selector: 'app-nouvel-article',
@@ -12,12 +12,12 @@ import { Category } from 'src/app/article/category';
 })
 export class NouvelArticleComponent {
   articleList: Article[];
-  categoryList: Category[];
+  categorieList: Categorie[];
   formLibele: string;
   formDescription: string;
   formImage: string;
   formPrix: number;
-  formCategory: Category|undefined;
+  formCategorie: Categorie|undefined;
 
 
 
@@ -27,29 +27,41 @@ export class NouvelArticleComponent {
     private articleService: ArticleService
   ) { }
 
+ 
   ngOnInit(): void {
-    this.articleList = this.articleService.getArticleList();
-    this.categoryList = this.articleService.getCategoryList();
-  }
+    this.articleService.getArticleList()
+      .subscribe(articleList => {
+        this.articleList = articleList;
+        console.log(this.articleList)
+      });
+  this.articleService.getCategorieList()
+      .subscribe(categorieList => {
+        this.categorieList = categorieList;
+        console.log(this.categorieList)
+  });
+  } 
 
   onImageSelected(event: any): void {
-    if (event.target.files[0]) {
-      const file = event.target.files[0];
-    console.log(file)
-    this.formImage = file.name;
-    }
-    else {
-      this.formImage = "";
-    }    
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.formImage = reader.result as string;
+    };
   }
   
+  
 
-  onCategorySelected(event: any) {
-    const categoryId = event.target.value;
-    if (!categoryId || categoryId === 'Open this select menu') {
-      this.formCategory = undefined;
+  onCategorieSelected(event: any) {
+    const categorieId = event.target.value;
+    if (!categorieId || categorieId === 'Open this select menu') {
+      this.formCategorie = undefined;
     } else {
-      this.formCategory = this.articleService.getCategoryById(categoryId);
+      this.articleService.getCategorieById(categorieId)
+      .subscribe(formCategorie => {
+        this.formCategorie = formCategorie;
+        console.log("dans onCategorie Selected : ",this.formCategorie)
+  });
     }
   }
 
@@ -57,32 +69,37 @@ export class NouvelArticleComponent {
     this.router.navigate(['/admin'])
   }
 
-  onSubmit(): void {
+  saveForm(): void {
     console.log(this.formLibele)
     console.log(this.formDescription)
     console.log(this.formImage)
     console.log(this.formPrix)
-    
-    if (!this.formLibele || !this.formDescription || !this.formImage || !this.formPrix ||  !this.formCategory) {
-      alert("Veuillez remplir tous les champs")
+  
+    if (!this.formLibele || !this.formDescription || !this.formImage || !this.formPrix || !this.formCategorie) {
+      //alert("Veuillez remplir tous les champs")
       return;
     }
 
-    const lastArticle = this.articleList[this.articleList.length - 1];
-    const newId = lastArticle ? lastArticle.id + 1 : 1;
+    console.log("ajout de l'article avec l'id de la categorie qui sera ",this.formCategorie.id)
+  
     const newArticle = new Article(
-      newId,
       this.formLibele,
       this.formDescription,
       this.formImage,
       this.formPrix,
-      this.formCategory.id
-    );
-    this.articleList.push(newArticle);
+      this.formCategorie,
+      this.articleService
+  );
+  
+    this.articleService.updateArticle(newArticle)
+      .subscribe((newArticle) => {
+        console.log('Article ajouté :', newArticle);
+      });
+
     this.back()
   }
 
-  //new Article(1, "Le Petit Prince", "Un livre de Saint-Exupéry", "../assets/nutella.jpg", 10.99, 1),
+
 }
 
 

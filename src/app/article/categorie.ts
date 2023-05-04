@@ -1,9 +1,8 @@
-export class Category {
-    id: number;
+export class Categorie {
+    id?: number|null;
     libele: string;
 
-    constructor(id: number, libele: string) {
-      this.id = id;
+    constructor(libele: string) {
       this.libele = libele;
     }
 
