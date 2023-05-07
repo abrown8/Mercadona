@@ -5,13 +5,13 @@
       </div>
       <div class="col-md-6">
         <h2>{{ article.libele }}</h2>
-        <span *ngIf="!(article.getPromotion() | async )?.pourcentage_remise" style="font-weight: bold">{{ article.prix }} €</span>
-        <span *ngIf="(article.getPromotion() | async )?.pourcentage_remise">
+        <span *ngIf="!(article.promotion | async )?.pourcentage_remise" style="font-weight: bold">{{ article.prix }} €</span>
+        <span *ngIf="(article.promotion | async )?.pourcentage_remise">
             <span style="text-decoration: line-through; color: red; font-size: 24px;">
                 {{ article.prix }} €
             </span>
             <span style="margin-left: 10px; font-size: 36px; font-weight: bold;">
-                {{ getReducedPriceForArticle(article) | async | number:'1.2-2' }} €
+                {{ article.prix_reduit| async | number:'1.2-2' }} €
             </span>
         </span>
         <form class="mt-3" (ngSubmit)="onSubmit()">

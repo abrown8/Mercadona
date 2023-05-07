@@ -32,12 +32,10 @@ export class NouvelArticleComponent {
     this.articleService.getArticleList()
       .subscribe(articleList => {
         this.articleList = articleList;
-        console.log(this.articleList)
       });
   this.articleService.getCategorieList()
       .subscribe(categorieList => {
         this.categorieList = categorieList;
-        console.log(this.categorieList)
   });
   } 
 
@@ -60,7 +58,6 @@ export class NouvelArticleComponent {
       this.articleService.getCategorieById(categorieId)
       .subscribe(formCategorie => {
         this.formCategorie = formCategorie;
-        console.log("dans onCategorie Selected : ",this.formCategorie)
   });
     }
   }
@@ -70,18 +67,10 @@ export class NouvelArticleComponent {
   }
 
   saveForm(): void {
-    console.log(this.formLibele)
-    console.log(this.formDescription)
-    console.log(this.formImage)
-    console.log(this.formPrix)
   
     if (!this.formLibele || !this.formDescription || !this.formImage || !this.formPrix || !this.formCategorie) {
-      //alert("Veuillez remplir tous les champs")
       return;
-    }
-
-    console.log("ajout de l'article avec l'id de la categorie qui sera ",this.formCategorie.id)
-  
+    } 
     const newArticle = new Article(
       this.formLibele,
       this.formDescription,
@@ -93,7 +82,6 @@ export class NouvelArticleComponent {
   
     this.articleService.updateArticle(newArticle)
       .subscribe((newArticle) => {
-        console.log('Article ajouté :', newArticle);
       });
 
     this.back()

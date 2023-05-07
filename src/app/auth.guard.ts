@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
       console.log("Vous etes bien authentifié pour le guard")
       return true;
     }
-    alert("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter.")
     this.router.navigate(['/admin-login'])
     return false;
   }

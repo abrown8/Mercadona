@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/auth.service';
   templateUrl: './authentification.component.html'
 })
 export class AuthentificationComponent {
-  message: string = "Vous êtes déconnecté. (admin/admin)";
   email: string;
   password: string;
   auth: AuthService;
@@ -26,29 +25,10 @@ export class AuthentificationComponent {
     this.router.navigate(['/catalogue']);
   }
 
-  setMessage() {
-    if(this.auth.isLoggedIn) {
-      this.message = "Vous êtes connecté";
-    }
-    else{
-      this.message = "Email ou mot de passe incorrect."
-    }
-  }
-
   login() {
-    this.message = "Tentative de connexion en cours...";
     this.auth.login(this.email, this.password)
       .subscribe((isLoggedIn: boolean) => {
-        this.setMessage();
-        console.log("dans login de autthentification component : "+isLoggedIn)
-        if(isLoggedIn) {
-          this.router.navigate(["/admin"]);
-        }
-        else{
-          alert("Identifiants incorrects, veuillez réessayer")
-          this.password = "";
-          this.router.navigate(["/admin-login"]);
-        }
+        this.router.navigate(["/admin"]);
       })
   }
 
