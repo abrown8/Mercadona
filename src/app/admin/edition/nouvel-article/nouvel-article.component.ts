@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Article } from 'src/app/article/article';
-import { ArticleService } from 'src/app/article/article.service';
-import { Categorie } from 'src/app/article/categorie';
+import { Article } from '../../../article/article';
+import { ArticleService } from '../../../article/article.service';
+import { Categorie } from '../../../article/categorie';
 
 @Component({
   selector: 'app-nouvel-article',

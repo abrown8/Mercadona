@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Article } from './article';
 import { Categorie } from './categorie';
 import { Promotion } from './promotion';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 @Injectable()
 export class ArticleService {

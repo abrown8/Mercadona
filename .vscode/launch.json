@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "MercadonaApplication",
+      "request": "launch",
+      "mainClass": "com.mercadona.mercadona.MercadonaApplication",
+      "projectName": "mercadona"
+    },
+    {
       "name": "ng serve",
       "type": "pwa-chrome",
       "request": "launch",

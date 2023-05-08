@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, map, of, switchMap } from 'rxjs';
-import { Article } from 'src/app/article/article';
-import { ArticleService } from 'src/app/article/article.service';
-import { Promotion } from 'src/app/article/promotion';
-import { AuthService } from 'src/app/auth.service';
+import { Observable, of } from 'rxjs';
+import { Article } from '../../article/article';
+import { ArticleService } from '../../article/article.service';
+import { Promotion } from '../../article/promotion';
+import { AuthService } from '../../auth.service';
 
 interface ReducePriceCache {
   [articleId: number]: number;
@@ -22,6 +22,7 @@ export class EditionComponent {
 
   constructor(
     private router: Router,
+    private ngZone: NgZone,
     private articleService: ArticleService,
     private authService: AuthService
   ) {}
@@ -41,12 +42,10 @@ export class EditionComponent {
   }
 
 
-  goToArticle(article: Article) {
-    this.router.navigate(['/catalogue', article.id])
-  }
-
   editPromotion(article: Article) {
-    this.router.navigate(['/admin', article.id])
+    this.ngZone.run(() => {
+      this.router.navigate(['/admin', article.id])
+    });
   }
 
   deletePromotion(article: Article) {
@@ -60,18 +59,16 @@ export class EditionComponent {
     });
   }
   
-
-  dateFormater(formDate: string): string {
-    const dateParts = formDate.split("-");
-    return dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0]
-  }
-
-  nouvelArticle(){
-    this.router.navigate(['/admin/nouvel-article'])
+  nouvelArticle(): void {
+    this.ngZone.run(() => {
+      this.router.navigate(['/admin/nouvel-article']);
+    });
   }
 
   logout() {
     this.auth.logout();
-    this.router.navigate(['/catalogue'])
+    this.ngZone.run(() => {
+      this.router.navigate(['/catalogue'])
+    });
   }
 }

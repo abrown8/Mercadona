@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { Article } from '../article';
 import { Router } from '@angular/router';
 import { ArticleService } from '../article.service';
-import { Promotion } from '../promotion';
 import { Categorie } from '../categorie';
-import { Observable, map, of } from 'rxjs';
 
 interface ReducePriceCache {
   [articleId: number]: number;
@@ -38,31 +36,6 @@ export class ListArticleComponent {
       .subscribe(categorieList => {
         this.categorieList = categorieList.map(categorie => Object.assign(new Categorie(categorie.libele), categorie));
       });
-  }
-
-  getReducePrice(article: Article): Observable<number> {
-    return article.promotion.pipe(
-      map((promo: Promotion|undefined) => {
-        if (promo) {
-          return article.prix - (article.prix * (promo.pourcentage_remise / 100));
-        } 
-        return 0;
-      })
-    );
-  }
-
-  getReducedPriceForArticle(article: Article): Observable<number> {
-    if (article.id && this.reducePriceCache[article.id]) {
-      return of(this.reducePriceCache[article.id]);
-    } else {
-      const reducedPrice$ = this.getReducePrice(article);
-      reducedPrice$.subscribe(reducedPrice => {
-        if (article.id) {
-          this.reducePriceCache[article.id] = reducedPrice;
-        }
-      });
-      return reducedPrice$;
-    }
   }
     
   onCategorieSelected(event: Event) {

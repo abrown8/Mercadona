@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from '../../auth.service';
 
 
 @Component({
@@ -14,6 +14,7 @@ export class AuthentificationComponent {
 
   constructor(
     private router: Router,
+    private ngZone: NgZone,
     private authService: AuthService
   ) { }
 
@@ -22,13 +23,17 @@ export class AuthentificationComponent {
   }
   
   goHome(){
-    this.router.navigate(['/catalogue']);
+    this.ngZone.run(() => {
+      this.router.navigate(['/catalogue'])
+    });
   }
 
   login() {
     this.auth.login(this.email, this.password)
       .subscribe((isLoggedIn: boolean) => {
-        this.router.navigate(["/admin"]);
+        this.ngZone.run(() => {
+          this.router.navigate(['/admin'])
+        });
       })
   }
 

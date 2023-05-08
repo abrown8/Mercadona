@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map, of, switchMap } from 'rxjs';
-import { Article } from 'src/app/article/article';
-import { ArticleService } from 'src/app/article/article.service';
-import { Promotion } from 'src/app/article/promotion';
+import { Observable, switchMap } from 'rxjs';
+import { Article } from '../../../article/article';
+import { ArticleService } from '../../../article/article.service';
+import { Promotion } from '../../../article/promotion';
 
 interface ReducePriceCache {
   [articleId: number]: number;
@@ -28,6 +28,7 @@ export class EditionPromoComponent {
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
+    private ngZone: NgZone,
     private articleService: ArticleService
   ) { }
 
@@ -58,60 +59,11 @@ export class EditionPromoComponent {
         });
     }  
   }
-
-  stringToDate(dateString: string): Date {
-    const [year, month, day] = dateString.split('-').map(Number);
-    return new Date(year, month - 1, day);
-  }
-  
-  formatDateToString(date: Date): string {
-    if (!(date instanceof Date)) {
-      date = new Date(date);
-    }
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  dateFormater(formDate: string|undefined): string {
-    if (formDate){
-      const dateParts = formDate.split("-");
-      return dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0]
-    }
-    return ""
-  }
-
-  
-  // getReducePrice(article: Article): Observable<number> {
-  //   return article.promotion.pipe(
-  //     map((promo: Promotion|undefined) => {
-  //       if (promo) {
-  //         return article.prix - (article.prix * (promo.pourcentage_remise / 100));
-  //       } 
-  //       return 0;
-  //     })
-  //   );
-  // }
-
-  // getReducedPriceForArticle(article: Article): Observable<number> {
-  //   if (article.id && this.reducePriceCache[article.id]) {
-  //     // Si le prix réduit a déjà été calculé pour cet article, on retourne le résultat stocké dans le cache
-  //     return of(this.reducePriceCache[article.id]);
-  //   } else {
-  //     // Sinon, on calcule le prix réduit et on le stocke dans le cache
-  //     const reducedPrice$ = this.getReducePrice(article);
-  //     reducedPrice$.subscribe(reducedPrice => {
-  //       if (article.id) {
-  //         this.reducePriceCache[article.id] = reducedPrice;
-  //       }
-  //     });
-  //     return reducedPrice$;
-  //   }
-  // }
-  
+    
   back() {
-    this.router.navigate(['/admin'])
+    this.ngZone.run(() => {
+      this.router.navigate(['/admin'])
+    });
   }
 
   deletePromotion(article: Article) {
