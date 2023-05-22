@@ -6,10 +6,35 @@
         <button class="btn btn-lg btn-danger rounded mx-2" (click)="logout()" style="background-color: #FF5733; max-width: 300px;">Se déconnecter</button>
       </div>
     </div>
+</div>
+
+<h2 class="m-4">Edition des catégories</h2>
+<div class="container-fluid py-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="form-group col m-3 col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <label for="categorie">Sélectionnez une catégorie</label>
+          <select class="form-select form-select-sm mb-3" id="selectCategorie" (change)="onCategorieSelected($event)">
+            <option selected>Sans filtre</option>
+            <option *ngFor="let categorie of categorieList" [value]="categorie.id">{{ categorie.libele }}</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-danger rounded mx-2" style="background-color: #FF5733" [disabled]="!selectedCategorie" (click)="editPromotionCategorie()">Ajouter une promotion</button>
+          <button class="btn btn-sm btn-danger rounded mx-2" style="background-color: #FF5733" [disabled]="!catHasPromoValue" (click)="editPromotionCategorie()">Modifier les promotions</button>
+          <button class="btn btn-sm btn-danger rounded mx-2" style="background-color: #FF5733" [disabled]="!selectedCategorie" (click)="deletePromotionCategorie()">Supprimer les promotions</button>
+
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
   
   
-<h2 class="mb-4">Edition des articles</h2>
+  
+<h2 class="m-4">Edition des articles</h2>
 <div class="container-fluid py-5">
     <div class="row">
         <div *ngFor="let article of articleList" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-4">
